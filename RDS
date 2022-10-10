@@ -8,3 +8,10 @@ output:
 ]
 
 aws rds describe-db-instances --query 'DBInstances[].DBInstanceStatus[]'
+
+
+
+
+
+"creating $rdsfile .."
+aws rds describe-db-instances --region=$region --query "DBInstances[].{DBInstanceIdentifier:DBInstanceIdentifier,DBName:DBName}" --output text | Sort-Object > $rdsfile
