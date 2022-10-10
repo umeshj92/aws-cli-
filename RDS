@@ -1,0 +1,10 @@
+#You can do something like this:
+
+aws rds describe-db-instances --query 'DBInstances[].DBInstanceStatus[]'
+output:
+
+[
+   "available"
+]
+
+aws rds describe-db-instances --query 'DBInstances[].DBInstanceStatus[]'
