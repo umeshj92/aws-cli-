@@ -1,0 +1,22 @@
+pipeline {
+  agent any
+  environment {
+    AWS_DEFAULT_REGION="us-east-1"
+  }
+  stages {
+    stage('Hello') {
+      steps {
+        sh '''
+          aws --version
+          aws rds describe-db-instances --query 'DBInstances[].{DBInstanceIdentifier:DBInstanceIdentifier,DBInstances:DBInstanceStatus}'
+           ids=(database-1 database-2)
+           for id in ${ids[@]}; 
+           do
+           echo "Stopping: ${id}" 
+           aws rds stop-db-instance --db-instance-identifier ${id} --region us-east-1 
+           done
+        '''
+      }
+    }
+  }
+}
